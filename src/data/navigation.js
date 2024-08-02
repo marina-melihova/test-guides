@@ -20,7 +20,7 @@ const navigation = [
   {
     title: "Jira Cloud Plugin",
     links: [
-      { title: "QA Service for Jira: About us", href: "/docs/jira_cloud/qa_jira_about" },
+      { title: "QA Service for Jira: About Us", href: "/docs/jira_cloud/qa_jira_about" },
       { title: "Installation", href: "/docs/jira_cloud/installation" },
       { title: "Authentication", href: "/docs/jira_cloud/authentication" },
       { title: "Configuration", href: "/docs/jira_cloud/configuration" },
