@@ -203,12 +203,12 @@ export function Layout({ children, title, tableOfContents }) {
           <nav aria-labelledby="on-this-page-title" className="w-56">
             {tableOfContents.length > 0 && (
               <>
-                <h2
+                <div
                   id="on-this-page-title"
                   className="font-display text-sm font-medium text-slate-900 dark:text-white"
                 >
                   On this page
-                </h2>
+                </div>
                 <ol role="list" className="mt-4 space-y-3 text-sm">
                   {tableOfContents.map((section) => (
                     <li key={section.id}>

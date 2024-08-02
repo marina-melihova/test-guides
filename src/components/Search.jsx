@@ -70,6 +70,26 @@ export function Search() {
                 Router.push(itemUrl)
               },
             }}
+            maxResultsPerGroup={60}
+            searchParameters={{
+              // Comment the line below to see more results (default: 20)
+              hitsPerPage: 60
+            }}
+            transformItems={(items) => {
+              return items.map((item) => {
+                const { objectID, url, type, hierarchy, _rankingInfo } = item;
+                console.log('objectID :>> ', objectID);
+                console.log('url :>> ', url);
+                // console.log('url_without_anchor :>> ', url_without_anchor);
+                console.log('type :>> ', type);
+                console.log('hierarchy :>> ', hierarchy);
+                console.log('_rankingInfo :>> ', _rankingInfo);
+                // content: item.content.toUpperCase(),
+                return {
+                  ...item,
+                }
+              });
+            }}
           />,
           document.body
         )}
