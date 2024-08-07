@@ -24,7 +24,7 @@ td {
   padding-top: 16px;
   padding-bottom: 16px !important;
   background-color: #f4f5f7;
-  @apply dark:bg-slate-700/40
+  @apply dark:bg-slate-700/40;
 }
 
 .narrow.inline {

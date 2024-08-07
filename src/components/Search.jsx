@@ -10,6 +10,8 @@ const docSearchConfig = {
   indexName: process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME,
 }
 
+const HITS_PER_PAGE = 50
+
 function Hit({ hit, children }) {
   return <Link href={hit.url}>{children}</Link>
 }
@@ -52,10 +54,24 @@ export function Search() {
           Search guides
         </span>
         {modifierKey && (
-          <kbd className="ml-auto hidden font-medium text-slate-400 dark:text-slate-500 md:block">
-            <kbd className="font-sans">{modifierKey}</kbd>
-            <kbd className="font-sans">K</kbd>
-          </kbd>
+          <div class="ml-auto hidden items-center font-medium text-[#777aaf] md:flex">
+            <div class="mr-1">
+              <kbd class="block w-6 rounded border-b-2 border-gray-300 bg-gradient-to-tl from-[#f5f5fA] to-[#d6d6e7]/60 shadow-[0_4px_11px_0_rgba(37,44,97,0.15),0_1px_3px_0_rgba(93,100,148,0.6)]">
+                <span class="flex w-full items-center justify-center rounded border-l border-r border-t border-white py-0.5 leading-none">
+                  <span class="block h-4">
+                    <span class="text-[10px] tracking-[-1px]">{modifierKey}</span>
+                  </span>
+                </span>
+              </kbd>
+            </div>
+            <kbd class="block w-6 rounded border-b-2 border-gray-300 bg-gradient-to-tl from-[#f5f5fA] to-[#d6d6e7]/60 shadow-[0_4px_11px_0_rgba(37,44,97,0.15),0_1px_3px_0_rgba(93,100,148,0.6)]">
+              <span class="flex w-full items-center justify-center rounded border-l border-r border-t border-white py-0.5 leading-none">
+                <span class="block h-4">
+                  <span class="text-xs">K</span>
+                </span>
+              </span>
+            </kbd>
+          </div>
         )}
       </button>
       {isOpen &&
@@ -70,25 +86,9 @@ export function Search() {
                 Router.push(itemUrl)
               },
             }}
-            maxResultsPerGroup={60}
+            maxResultsPerGroup={HITS_PER_PAGE}
             searchParameters={{
-              // Comment the line below to see more results (default: 20)
-              hitsPerPage: 60
-            }}
-            transformItems={(items) => {
-              return items.map((item) => {
-                const { objectID, url, type, hierarchy, _rankingInfo } = item;
-                console.log('objectID :>> ', objectID);
-                console.log('url :>> ', url);
-                // console.log('url_without_anchor :>> ', url_without_anchor);
-                console.log('type :>> ', type);
-                console.log('hierarchy :>> ', hierarchy);
-                console.log('_rankingInfo :>> ', _rankingInfo);
-                // content: item.content.toUpperCase(),
-                return {
-                  ...item,
-                }
-              });
+              hitsPerPage: HITS_PER_PAGE,
             }}
           />,
           document.body
