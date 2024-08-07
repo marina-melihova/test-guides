@@ -54,20 +54,20 @@ export function Search() {
           Search guides
         </span>
         {modifierKey && (
-          <div class="ml-auto hidden items-center font-medium text-[#777aaf] md:flex">
-            <div class="mr-1">
-              <kbd class="block w-6 rounded border-b-2 border-gray-300 bg-gradient-to-tl from-[#f5f5fA] to-[#d6d6e7]/60 shadow-[0_4px_11px_0_rgba(37,44,97,0.15),0_1px_3px_0_rgba(93,100,148,0.6)]">
-                <span class="flex w-full items-center justify-center rounded border-l border-r border-t border-white py-0.5 leading-none">
-                  <span class="block h-4">
-                    <span class="text-[10px] tracking-[-1px]">{modifierKey}</span>
+          <div className="ml-auto hidden items-center font-medium text-[#777aaf] md:flex">
+            <div className="mr-1">
+              <kbd className="block w-6 rounded border-b-2 border-gray-300 bg-gradient-to-tl from-[#f5f5fA] to-[#d6d6e7]/60 shadow-[0_4px_11px_0_rgba(37,44,97,0.15),0_1px_3px_0_rgba(93,100,148,0.6)]">
+                <span className="flex w-full items-center justify-center rounded border-l border-r border-t border-white py-0.5 leading-none">
+                  <span className="block h-4">
+                    <span className="text-[10px] tracking-[-1px]">{modifierKey}</span>
                   </span>
                 </span>
               </kbd>
             </div>
-            <kbd class="block w-6 rounded border-b-2 border-gray-300 bg-gradient-to-tl from-[#f5f5fA] to-[#d6d6e7]/60 shadow-[0_4px_11px_0_rgba(37,44,97,0.15),0_1px_3px_0_rgba(93,100,148,0.6)]">
-              <span class="flex w-full items-center justify-center rounded border-l border-r border-t border-white py-0.5 leading-none">
-                <span class="block h-4">
-                  <span class="text-xs">K</span>
+            <kbd className="block w-6 rounded border-b-2 border-gray-300 bg-gradient-to-tl from-[#f5f5fA] to-[#d6d6e7]/60 shadow-[0_4px_11px_0_rgba(37,44,97,0.15),0_1px_3px_0_rgba(93,100,148,0.6)]">
+              <span className="flex w-full items-center justify-center rounded border-l border-r border-t border-white py-0.5 leading-none">
+                <span className="block h-4">
+                  <span className="text-xs">K</span>
                 </span>
               </span>
             </kbd>
@@ -87,9 +87,6 @@ export function Search() {
               },
             }}
             maxResultsPerGroup={HITS_PER_PAGE}
-            searchParameters={{
-              hitsPerPage: HITS_PER_PAGE,
-            }}
           />,
           document.body
         )}
