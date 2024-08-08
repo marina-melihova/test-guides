@@ -1,5 +1,5 @@
 ---
-title: "QA Service for Jira: About us"
+title: "QA Service for Jira: About Us"
 description: Learn about new QA Service for Jira.
 ---
 

@@ -55,7 +55,9 @@ function Header({ main, navigation }) {
           </span>
         </Link>
       </div>
-      <div className="-my-5 mr-6 sm:mr-8 md:mr-4"><Search /></div>
+      <div className="-my-5 mr-6 sm:mr-8 md:mr-4">
+        <Search />
+      </div>
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8">
         <ThemeSelector className="relative z-10" />
         <Link
@@ -113,10 +115,26 @@ function useTableOfContents(tableOfContents) {
   return currentSection
 }
 
+function getAllLinks(array) {
+  const output = []
+  array.forEach((item) => {
+    if (item.children) {
+      const { children, ...rest } = item
+      output.push(rest)
+      const childOutput = getAllLinks(children)
+      output.push(...childOutput)
+    } else {
+      output.push(item)
+    }
+  })
+
+  return output
+}
+
 export function Layout({ children, title, tableOfContents }) {
   let router = useRouter()
   let isHomePage = router.pathname === "/"
-  let allLinks = navigation.flatMap((section) => section.links)
+  let allLinks = navigation.flatMap((section) => getAllLinks(section.links))
   let linkIndex = allLinks.findIndex((link) => link.href === router.pathname)
   let previousPage = allLinks[linkIndex - 1]
   let nextPage = allLinks[linkIndex + 1]
@@ -203,12 +221,12 @@ export function Layout({ children, title, tableOfContents }) {
           <nav aria-labelledby="on-this-page-title" className="w-56">
             {tableOfContents.length > 0 && (
               <>
-                <div
+                <h2
                   id="on-this-page-title"
                   className="font-display text-sm font-medium text-slate-900 dark:text-white"
                 >
                   On this page
-                </div>
+                </h2>
                 <ol role="list" className="mt-4 space-y-3 text-sm">
                   {tableOfContents.map((section) => (
                     <li key={section.id}>
