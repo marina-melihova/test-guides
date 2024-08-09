@@ -2,11 +2,23 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline"
 import clsx from "clsx"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function MenuItem({ item }) {
+export default function MenuItem({ item, parents }) {
   const [open, setOpen] = useState(false)
   let router = useRouter()
+
+  useEffect(() => {
+    if (parents.includes(item.href)) {
+      setOpen(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (item.href === router.pathname) {
+      setOpen(true)
+    }
+  }, [router.pathname])
 
   const handlerClick = (event) => {
     const chevron = event.target.closest("svg")
@@ -29,6 +41,7 @@ export default function MenuItem({ item }) {
             ? "font-semibold text-sky-500 before:bg-sky-500"
             : "text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300"
         )}
+        aria-selected={item.href === router.pathname}
       >
         {item.title}
         {item.children && (
@@ -46,7 +59,7 @@ export default function MenuItem({ item }) {
           )}
         >
           {item.children.map((child, index) => (
-            <MenuItem key={index} item={child} />
+            <MenuItem key={index} item={child} parents={parents} />
           ))}
         </ul>
       )}

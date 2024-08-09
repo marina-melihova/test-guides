@@ -1,10 +1,29 @@
+import { getAllParentLinks, isLinkInChildren } from "@/utils/helpers"
 import clsx from "clsx"
 import Link from "next/link"
 import { useRouter } from "next/router"
+
 import MenuItem from "./MenuItem"
 
 export function Navigation({ navigation, main, className }) {
-  let router = useRouter()
+  const router = useRouter()
+
+  const allAncestors = []
+  let ancestor
+  let section = navigation.find((section) =>
+    section.links.find((link) => {
+      if (link.href === router.pathname) {
+        return true
+      } else if (link.children && isLinkInChildren(link.children, router.pathname)) {
+        ancestor = link
+      }
+      return false
+    })
+  )
+
+  if (!section && ancestor) {
+    getAllParentLinks(ancestor, router.pathname, allAncestors)
+  }
 
   return (
     <nav className={clsx("text-base lg:text-sm", className)}>
@@ -37,7 +56,7 @@ export function Navigation({ navigation, main, className }) {
               className="mt-2 space-y-2 border-l-2 border-slate-100 dark:border-slate-800 lg:border-slate-200"
             >
               {section.links.map((link, index) => (
-                <MenuItem key={index} item={link} />
+                <MenuItem key={index} item={link} parents={allAncestors} />
               ))}
             </ul>
           </li>

@@ -1,5 +1,5 @@
 ---
-title: "Bug Triage: Confirm Bug with an Experienced Tester"
+title: Confirm Bug with an Experienced Tester
 description: Learn how to confirm a bug with an experienced tester.
 ---
 

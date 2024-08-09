@@ -7,6 +7,7 @@ import { Search } from "@/components/Search"
 import { ThemeSelector } from "@/components/ThemeSelector"
 import main from "@/data/main"
 import navigation from "@/data/navigation"
+import { getAllLinks, isLinkInChildren } from "@/utils/helpers"
 import clsx from "clsx"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -115,22 +116,6 @@ function useTableOfContents(tableOfContents) {
   return currentSection
 }
 
-function getAllLinks(array) {
-  const output = []
-  array.forEach((item) => {
-    if (item.children) {
-      const { children, ...rest } = item
-      output.push(rest)
-      const childOutput = getAllLinks(children)
-      output.push(...childOutput)
-    } else {
-      output.push(item)
-    }
-  })
-
-  return output
-}
-
 export function Layout({ children, title, tableOfContents }) {
   let router = useRouter()
   let isHomePage = router.pathname === "/"
@@ -138,9 +123,25 @@ export function Layout({ children, title, tableOfContents }) {
   let linkIndex = allLinks.findIndex((link) => link.href === router.pathname)
   let previousPage = allLinks[linkIndex - 1]
   let nextPage = allLinks[linkIndex + 1]
-  let section = navigation.find((section) =>
-    section.links.find((link) => link.href === router.pathname)
-  )
+  let section
+  for (let item of navigation) {
+    for (let link of item.links) {
+      if (link.href === router.pathname) {
+        section = item
+        break
+      } else {
+        const { children } = link
+        if (children) {
+          const isLinkFound = isLinkInChildren(children, router.pathname)
+          if (isLinkFound) {
+            section = link
+            break
+          }
+        }
+      }
+    }
+  }
+
   let currentSection = useTableOfContents(tableOfContents)
 
   function isActive(section) {
