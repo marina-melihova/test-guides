@@ -63,7 +63,7 @@ const navigation = [
           { title: "Bug Reporductions", href: "/docs/jira_cloud/bug_reporductions" },
           { title: "Test IO Bugs: All Bugs page", href: "/docs/jira_cloud/all_bugs_page" },
           {
-            title: "Exploratory Tests and Bug types in Test",
+            title: "Exploratory Tests and Bug types",
             href: "/docs/jira_cloud/test_bug_types",
           },
           {
